@@ -169,7 +169,47 @@
                 forensic: { title: 'Simulación Forense', resilienceTitle: 'Evaluación de Resiliencia', scenariosEvaluated: 'escenarios evaluados', scoreLabel: 'Score', answerLabel: 'Respuesta:', continue: 'Continuar', next: 'Siguiente', seeResults: 'Ver Resultados' },
                 dashboard: { title: 'Mis Blueprints', newSession: 'Nueva Sesión', searchPlaceholder: 'Buscar...', sortOptions: ['Más reciente', 'Mayor score', 'Alfabético'], noBlueprints: 'No hay blueprints', noBlueprintsDesc: 'Inicia tu primera sesión.', createFirst: 'Crear primera sesión', sessions: 'sesión', view: 'Ver', delete: 'Eliminar' },
                 modal: { exportLabel: 'Exportar', score: 'Score', entities: 'Entidades', workflows: 'Workflows' },
-                docs: { title: 'Documentación', sections: ['Arquitectura', 'OpenAPI', 'Datos', 'Seguridad'], archCards: [{ n: 'API Gateway', t: 'Kong + OIDC', m: '99.99%' }, { n: 'ALMA Core', t: 'Rust (Axum)', m: '<50ms p99' }, { n: 'LLM Gateway', t: 'Rust + reqwest', m: '<200ms p99' }, { n: 'PostgreSQL', t: 'RDS Multi-AZ', m: 'PITR' }, { n: 'Redis', t: 'Cluster 3 nodos', m: 'Fragmentación' }, { n: 'S3', t: 'AWS S3', m: '11 9s' }], apiEndpoints: [{ m: 'POST', p: '/auth/register' }, { m: 'POST', p: '/sessions' }, { m: 'PUT', p: '/sessions/{id}/step' }, { m: 'POST', p: '/sessions/{id}/compile' }, { m: 'POST', p: '/blueprints/{id}/export' }], schemaSQL: "CREATE TABLE users (id UUID PRIMARY KEY, email TEXT UNIQUE, password_hash TEXT);\nCREATE TABLE sessions (id UUID PRIMARY KEY, mode TEXT, status TEXT DEFAULT 'active', draft_blueprint JSONB);\nCREATE TABLE blueprints (id UUID PRIMARY KEY, fingerprint TEXT UNIQUE, content JSONB, maturity_score INT);", securityCards: [{ t: 'Cifrado en Reposo', items: ['AES-256-GCM', 'bcrypt cost 12', 'AWS KMS'] }, { t: 'Cifrado en Tránsito', items: ['TLS 1.3', 'mTLS', 'cert-manager'] }, { t: 'BYOK', items: ['Solo fingerprint', 'Sin almacenamiento de claves'] }, { t: 'Backup', items: ['WAL continuo 35 días', 'Snapshots diario'] }] },
+                docs: { 
+                    title: 'Documentación', 
+                    sections: ['Arquitectura', 'OpenAPI', 'Datos', 'Seguridad', 'Roadmap'],
+                    archCards: [{ n: 'API Gateway', t: 'Kong + OIDC', m: '99.99%' }, { n: 'ALMA Core', t: 'Rust (Axum)', m: '<50ms p99' }, { n: 'LLM Gateway', t: 'Rust + reqwest', m: '<200ms p99' }, { n: 'PostgreSQL', t: 'RDS Multi-AZ', m: 'PITR' }, { n: 'Redis', t: 'Cluster 3 nodos', m: 'Fragmentación' }, { n: 'S3', t: 'AWS S3', m: '11 9s' }], 
+                    apiEndpoints: [{ m: 'POST', p: '/auth/register' }, { m: 'POST', p: '/sessions' }, { m: 'PUT', p: '/sessions/{id}/step' }, { m: 'POST', p: '/sessions/{id}/compile' }, { m: 'POST', p: '/blueprints/{id}/export' }], 
+                    schemaSQL: "CREATE TABLE users (id UUID PRIMARY KEY, email TEXT UNIQUE, password_hash TEXT);\nCREATE TABLE sessions (id UUID PRIMARY KEY, mode TEXT, status TEXT DEFAULT 'active', draft_blueprint JSONB);\nCREATE TABLE blueprints (id UUID PRIMARY KEY, fingerprint TEXT UNIQUE, content JSONB, maturity_score INT);", 
+                    securityCards: [{ t: 'Cifrado en Reposo', items: ['AES-256-GCM', 'bcrypt cost 12', 'AWS KMS'] }, { t: 'Cifrado en Tránsito', items: ['TLS 1.3', 'mTLS', 'cert-manager'] }, { t: 'BYOK', items: ['Solo fingerprint', 'Sin almacenamiento de claves'] }, { t: 'Backup', items: ['WAL continuo 35 días', 'Snapshots diario'] }],
+                    roadmap: {
+                        title: 'ALMA - Hoja de Ruta',
+                        subtitle: 'De cualquier problema descrito en lenguaje natural al plano de ejecución completo',
+                        intro: 'ALMA es un sistema que recibe la descripción de un problema real —sin importar el sector o la complejidad— y genera automáticamente una especificación arquitectónica completa, lista para ser materializada en la plataforma de construcción que el usuario prefiera.',
+                        vision: 'No es una herramienta de nicho. Es un compilador de propósito general: procesa la intención humana y devuelve un plano ejecutable.',
+                        layersTitle: 'La pieza que falta en el ecosistema de desarrollo',
+                        layersDesc: 'El mercado dispone de plataformas de construcción muy capaces (low‑code, no‑code, automatización), pero todas parten de la misma premisa: alguien tiene que haber traducido previamente la necesidad real en una arquitectura de software. ALMA ocupa exactamente ese espacio vacío. Es la capa 0 del desarrollo de software.',
+                        layersTable: { headers: ['Capa', 'Función', 'Ejemplos'], rows: [['Capa 0 – Intención', 'Comprende el problema y genera la especificación ejecutable.', 'ALMA'], ['Capa 1 – Construcción', 'Materializa la especificación en un sistema funcional.', 'Make, n8n, Bubble, Bolt, Lovable, FlutterFlow, Webflow, Replit, Vercel v0'], ['Capa 2 – Infraestructura', 'Despliega, escala y mantiene el sistema.', 'AWS, Vercel, Supabase']] },
+                        universalTitle: 'Universal desde el diseño',
+                        universalDesc: 'El prototipo actual utiliza un conjunto reducido de patrones únicamente para validar la metodología. Una vez integrado el motor de IA generativa, ALMA podrá procesar cualquier narrativa, sin importar la industria.',
+                        domains: ['Salud, bienestar y cuidado de personas dependientes', 'Finanzas personales, inversión, crédito y seguros', 'Logística, transporte y cadena de suministro', 'Legal, cumplimiento normativo y administración pública', 'Educación, formación y gestión del talento', 'Comercio electrónico, SaaS y modelos de suscripción', 'Agricultura, energía, agua y sostenibilidad', 'Seguridad, prevención de violencia y respuesta a crisis', 'Cualquier otra necesidad humana o empresarial que pueda describirse en lenguaje natural'],
+                        advantagesTitle: 'Ventajas estructurales del modelo',
+                        advantages: [
+                            { title: 'Costo de mantenimiento cercano a cero', desc: 'Un plano generado por ALMA es una especificación que ha pasado por una capa de validación automática. Incluye reglas de integridad, entidades modeladas, flujos de estado contrastados y un sandbox de pruebas. La deuda técnica derivada de malas decisiones iniciales prácticamente desaparece.' },
+                            { title: 'Aprendizaje continuo y biblioteca de soluciones', desc: 'Cada interacción con ALMA deja un rastro útil. El sistema aprende de las correcciones que aplican los usuarios y esa información se incorpora para mejorar las siguientes compilaciones. Con el tiempo, se construye una biblioteca de planos validados que acelera las nuevas traducciones.' },
+                            { title: 'Los datos de intención como activo estratégico', desc: 'Las narrativas que los usuarios introducen en ALMA son datos de mercado de primera mano. Cada intención contiene información estructurada sobre necesidades no resueltas, procesos ineficientes y oportunidades de innovación. Esto permite anticipar necesidades emergentes antes de que se conviertan en demanda explícita.' }
+                        ],
+                        timelineTitle: 'Hoja de ruta — 10 semanas hasta el compilador funcional',
+                        phases: [
+                            { name: 'Prototipo actual', desc: 'Motor de extracción basado en reglas fijas para un conjunto acotado de dominios de prueba. Generación de entidades, flujos de trabajo, invariantes de negocio y brechas de seguridad/integridad.', weeks: '' },
+                            { name: 'Semanas 1‑3 — Motor de IA generativa', desc: 'Reemplazar las reglas fijas por un modelo de lenguaje de gran escala (LLM) que opere sin catálogo previo. Integración con GPT‑4o / Claude mediante prompt engineering especializado. Capa de validación automática con umbral de confianza del 85%.', weeks: '1-3' },
+                            { name: 'Semanas 4‑6 — Compilador multiplataforma y sandbox', desc: 'Transformar el plano en un sistema ejecutable real con un solo clic. Traducción directa a código fuente (Next.js + TypeScript), workflows de automatización (Make, n8n) y aplicaciones low-code (Bubble, FlutterFlow, Webflow). Sandbox de validación con pruebas de integridad automatizadas.', weeks: '4-6' },
+                            { name: 'Semanas 7‑8 — Plataforma SaaS y colaboración', desc: 'Autenticación OAuth, historial de sesiones, versionado de blueprints, compartición de planos, sistema de créditos y integración directa con plataformas de construcción.', weeks: '7-8' },
+                            { name: 'Semanas 9‑10 — Memoria, datos y mejora autónoma', desc: 'Refuerzo por feedback humano, expansión automática de dominios, biblioteca de planos validados, panel de datos agregados de intenciones y asistente conversacional embebido.', weeks: '9-10' }
+                        ],
+                        milestonesTitle: 'Hitos principales',
+                        milestones: [
+                            { week: 'Semana 3', milestone: 'IA generativa + validación automática', outcome: 'Planos de calidad para cualquier problema' },
+                            { week: 'Semana 6', milestone: 'Compilador nativo + sandbox de pruebas', outcome: 'Un clic produce un sistema ejecutable verificado' },
+                            { week: 'Semana 8', milestone: 'SaaS, facturación e integraciones', outcome: 'Producto monetizable y abierto' },
+                            { week: 'Semana 10', milestone: 'Aprendizaje continuo y biblioteca de planos', outcome: 'Mejora autónoma y acumulación de activo de datos defendible' }
+                        ]
+                    }
+                },
                 toast: { sessionStarted: 'Sesión iniciada: modo ', entitiesDetected: ' entidades detectadas', blueprintCompiled: 'Blueprint compilado', deleted: 'Eliminado' }
             },
             en: {
@@ -249,7 +289,47 @@
                 forensic: { title: 'Forensic Simulation', resilienceTitle: 'Resilience Assessment', scenariosEvaluated: 'scenarios evaluated', scoreLabel: 'Score', answerLabel: 'Response:', continue: 'Continue', next: 'Next', seeResults: 'See Results' },
                 dashboard: { title: 'My Blueprints', newSession: 'New Session', searchPlaceholder: 'Search...', sortOptions: ['Most recent', 'Highest score', 'Alphabetical'], noBlueprints: 'No blueprints', noBlueprintsDesc: 'Start your first session.', createFirst: 'Create first session', sessions: 'session', view: 'View', delete: 'Delete' },
                 modal: { exportLabel: 'Export', score: 'Score', entities: 'Entities', workflows: 'Workflows' },
-                docs: { title: 'Documentation', sections: ['Architecture', 'OpenAPI', 'Data', 'Security'], archCards: [{ n: 'API Gateway', t: 'Kong + OIDC', m: '99.99%' }, { n: 'ALMA Core', t: 'Rust (Axum)', m: '<50ms p99' }, { n: 'LLM Gateway', t: 'Rust + reqwest', m: '<200ms p99' }, { n: 'PostgreSQL', t: 'RDS Multi-AZ', m: 'PITR' }, { n: 'Redis', t: '3-node Cluster', m: 'Fragmentation' }, { n: 'S3', t: 'AWS S3', m: '11 9s' }], apiEndpoints: [{ m: 'POST', p: '/auth/register' }, { m: 'POST', p: '/sessions' }, { m: 'PUT', p: '/sessions/{id}/step' }, { m: 'POST', p: '/sessions/{id}/compile' }, { m: 'POST', p: '/blueprints/{id}/export' }], schemaSQL: "CREATE TABLE users (id UUID PRIMARY KEY, email TEXT UNIQUE, password_hash TEXT);\nCREATE TABLE sessions (id UUID PRIMARY KEY, mode TEXT, status TEXT DEFAULT 'active', draft_blueprint JSONB);\nCREATE TABLE blueprints (id UUID PRIMARY KEY, fingerprint TEXT UNIQUE, content JSONB, maturity_score INT);", securityCards: [{ t: 'Encryption at Rest', items: ['AES-256-GCM', 'bcrypt cost 12', 'AWS KMS'] }, { t: 'Encryption in Transit', items: ['TLS 1.3', 'mTLS', 'cert-manager'] }, { t: 'BYOK', items: ['Fingerprint only', 'No key storage'] }, { t: 'Backup', items: ['Continuous WAL 35 days', 'Daily snapshots'] }] },
+                docs: { 
+                    title: 'Documentation', 
+                    sections: ['Architecture', 'OpenAPI', 'Data', 'Security', 'Roadmap'],
+                    archCards: [{ n: 'API Gateway', t: 'Kong + OIDC', m: '99.99%' }, { n: 'ALMA Core', t: 'Rust (Axum)', m: '<50ms p99' }, { n: 'LLM Gateway', t: 'Rust + reqwest', m: '<200ms p99' }, { n: 'PostgreSQL', t: 'RDS Multi-AZ', m: 'PITR' }, { n: 'Redis', t: '3-node Cluster', m: 'Fragmentation' }, { n: 'S3', t: 'AWS S3', m: '11 9s' }], 
+                    apiEndpoints: [{ m: 'POST', p: '/auth/register' }, { m: 'POST', p: '/sessions' }, { m: 'PUT', p: '/sessions/{id}/step' }, { m: 'POST', p: '/sessions/{id}/compile' }, { m: 'POST', p: '/blueprints/{id}/export' }], 
+                    schemaSQL: "CREATE TABLE users (id UUID PRIMARY KEY, email TEXT UNIQUE, password_hash TEXT);\nCREATE TABLE sessions (id UUID PRIMARY KEY, mode TEXT, status TEXT DEFAULT 'active', draft_blueprint JSONB);\nCREATE TABLE blueprints (id UUID PRIMARY KEY, fingerprint TEXT UNIQUE, content JSONB, maturity_score INT);", 
+                    securityCards: [{ t: 'Encryption at Rest', items: ['AES-256-GCM', 'bcrypt cost 12', 'AWS KMS'] }, { t: 'Encryption in Transit', items: ['TLS 1.3', 'mTLS', 'cert-manager'] }, { t: 'BYOK', items: ['Fingerprint only', 'No key storage'] }, { t: 'Backup', items: ['Continuous WAL 35 days', 'Daily snapshots'] }],
+                    roadmap: {
+                        title: 'ALMA - Roadmap',
+                        subtitle: 'From any problem described in natural language to complete execution blueprint',
+                        intro: 'ALMA is a system that receives the description of a real problem—regardless of sector or complexity—and automatically generates a complete architectural specification, ready to be materialized in the construction platform of the user\'s choice.',
+                        vision: 'It is not a niche tool. It is a general-purpose compiler: it processes human intention and returns an executable blueprint.',
+                        layersTitle: 'The missing piece in the development ecosystem',
+                        layersDesc: 'The market has very capable construction platforms (low-code, no-code, automation), but they all start from the same premise: someone must have previously translated the real need into a software architecture. ALMA occupies exactly that empty space. It is layer 0 of software development.',
+                        layersTable: { headers: ['Layer', 'Function', 'Examples'], rows: [['Layer 0 – Intention', 'Understands the problem and generates the executable specification.', 'ALMA'], ['Layer 1 – Construction', 'Materializes the specification into a functional system.', 'Make, n8n, Bubble, Bolt, Lovable, FlutterFlow, Webflow, Replit, Vercel v0'], ['Layer 2 – Infrastructure', 'Deploys, scales and maintains the system.', 'AWS, Vercel, Supabase']] },
+                        universalTitle: 'Universal by design',
+                        universalDesc: 'The current prototype uses a reduced set of patterns only to validate the methodology. Once the generative AI engine is integrated, ALMA will be able to process any narrative, regardless of industry.',
+                        domains: ['Health, wellness and care for dependent persons', 'Personal finance, investment, credit and insurance', 'Logistics, transport and supply chain', 'Legal, regulatory compliance and public administration', 'Education, training and talent management', 'E-commerce, SaaS and subscription models', 'Agriculture, energy, water and sustainability', 'Security, violence prevention and crisis response', 'Any other human or business need that can be described in natural language'],
+                        advantagesTitle: 'Structural advantages of the model',
+                        advantages: [
+                            { title: 'Near-zero maintenance cost', desc: 'A blueprint generated by ALMA is a specification that has passed through an automatic validation layer. It includes integrity rules, modeled entities, contrasted state flows and a test sandbox. Technical debt derived from poor initial decisions practically disappears.' },
+                            { title: 'Continuous learning and solution library', desc: 'Every interaction with ALMA leaves a useful trail. The system learns from corrections applied by users and that information is incorporated to improve subsequent compilations. Over time, a library of validated blueprints is built that accelerates new translations.' },
+                            { title: 'Intention data as a strategic asset', desc: 'The narratives that users enter into ALMA are first-hand market data. Each intention contains structured information about unresolved needs, inefficient processes and innovation opportunities. This makes it possible to anticipate emerging needs before they become explicit demand.' }
+                        ],
+                        timelineTitle: 'Roadmap — 10 weeks to functional compiler',
+                        phases: [
+                            { name: 'Current Prototype', desc: 'Extraction engine based on fixed rules for a limited set of test domains. Generation of entities, workflows, business invariants and security/integrity gaps.', weeks: '' },
+                            { name: 'Weeks 1‑3 — Generative AI Engine', desc: 'Replace fixed rules with a large language model (LLM) that operates without a prior catalog. Integration with GPT‑4o / Claude via specialized prompt engineering. Automatic validation layer with 85% confidence threshold.', weeks: '1-3' },
+                            { name: 'Weeks 4‑6 — Multi-platform Compiler and Sandbox', desc: 'Transform the blueprint into a real executable system with a single click. Direct translation to source code (Next.js + TypeScript), automation workflows (Make, n8n) and low-code applications (Bubble, FlutterFlow, Webflow). Validation sandbox with automated integrity tests.', weeks: '4-6' },
+                            { name: 'Weeks 7‑8 — SaaS Platform and Collaboration', desc: 'OAuth authentication, session history, blueprint versioning, blueprint sharing, credit system and direct integration with construction platforms.', weeks: '7-8' },
+                            { name: 'Weeks 9‑10 — Memory, Data and Autonomous Improvement', desc: 'Human feedback reinforcement, automatic domain expansion, library of validated blueprints, aggregated intention data dashboard and embedded conversational assistant.', weeks: '9-10' }
+                        ],
+                        milestonesTitle: 'Key Milestones',
+                        milestones: [
+                            { week: 'Week 3', milestone: 'Generative AI + automatic validation', outcome: 'Quality blueprints for any problem' },
+                            { week: 'Week 6', milestone: 'Native compiler + test sandbox', outcome: 'One click produces a verified executable system' },
+                            { week: 'Week 8', milestone: 'SaaS, billing and integrations', outcome: 'Monetizable and open product' },
+                            { week: 'Week 10', milestone: 'Continuous learning and blueprint library', outcome: 'Autonomous improvement and accumulation of defensible data asset' }
+                        ]
+                    }
+                },
                 toast: { sessionStarted: 'Session started: mode ', entitiesDetected: ' entities detected', blueprintCompiled: 'Blueprint compiled', deleted: 'Deleted' }
             }
         };
@@ -2328,8 +2408,152 @@
 
         function Docs() {
             const tt = useT();
+            const roadmap = tt('docs.roadmap', { returnObjects: true });
             return (
-                <div className="min-h-screen pt-16 pb-12 px-4 fi"><div className="max-w-4xl mx-auto"><h1 className="text-2xl font-bold text-white mb-6">{tt('docs.title')}</h1><div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">{tt('docs.archCards',{returnObjects:true}).map((card,i)=>(<div key={i} className="bg-white/[.03] border border-white/5 rounded-xl p-4"><h3 className="text-sm font-semibold text-white mb-1">{card.n}</h3><p className="text-xs text-slate-400 mb-2">{card.t}</p><span className="text-[10px] px-2 py-0.5 rounded bg-green-500/10 text-green-400">{card.m}</span></div>))}</div><div className="bg-white/[.03] border border-white/5 rounded-xl p-4 mb-6"><h3 className="text-sm font-semibold text-white mb-3">API Endpoints</h3><div className="space-y-2">{tt('docs.apiEndpoints',{returnObjects:true}).map((ep,i)=>(<div key={i} className="flex items-center gap-3 text-xs font-mono"><span className={`px-2 py-1 rounded ${ep.m==='POST'?'bg-green-500/10 text-green-400':ep.m==='PUT'?'bg-blue-500/10 text-blue-400':'bg-slate-500/10 text-slate-400'}`}>{ep.m}</span><span className="text-slate-300">{ep.p}</span></div>))}</div></div><div className="bg-white/[.03] border border-white/5 rounded-xl p-4 mb-6"><h3 className="text-sm font-semibold text-white mb-3">Schema SQL</h3><pre className="text-xs text-slate-400 font-mono whitespace-pre overflow-x-auto">{tt('docs.schemaSQL')}</pre></div><div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{tt('docs.securityCards',{returnObjects:true}).map((card,i)=>(<div key={i} className="bg-white/[.03] border border-white/5 rounded-xl p-4"><h3 className="text-sm font-semibold text-white mb-2">{card.t}</h3><ul className="space-y-1">{card.items.map((item,j)=>(<li key={j} className="text-xs text-slate-400 flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-indigo-400"/>{item}</li>))}</ul></div>))}</div></div></div>);
+                <div className="min-h-screen pt-16 pb-12 px-4 fi">
+                    <div className="max-w-5xl mx-auto">
+                        <h1 className="text-2xl font-bold text-white mb-6">{tt('docs.title')}</h1>
+                        
+                        {/* Roadmap Section */}
+                        <div className="mb-12">
+                            <h2 className="text-xl font-bold text-indigo-300 mb-2">{roadmap.title}</h2>
+                            <p className="text-slate-400 mb-4">{roadmap.subtitle}</p>
+                            
+                            <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                <p className="text-slate-300 mb-4">{roadmap.intro}</p>
+                                <p className="text-indigo-200 font-medium">{roadmap.vision}</p>
+                            </div>
+                            
+                            {/* Layers Table */}
+                            <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                <h3 className="text-lg font-semibold text-white mb-3">{roadmap.layersTitle}</h3>
+                                <p className="text-slate-400 mb-4">{roadmap.layersDesc}</p>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-sm">
+                                        <thead>
+                                            <tr className="border-b border-white/10">
+                                                {roadmap.layersTable.headers.map((h, i) => (
+                                                    <th key={i} className="text-left py-2 px-3 text-indigo-300 font-semibold">{h}</th>
+                                                ))}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {roadmap.layersTable.rows.map((row, i) => (
+                                                <tr key={i} className="border-b border-white/5 last:border-0">
+                                                    {row.map((cell, j) => (
+                                                        <td key={j} className="py-3 px-3 text-slate-300">{cell}</td>
+                                                    ))}
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            {/* Universal Section */}
+                            <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                <h3 className="text-lg font-semibold text-white mb-3">{roadmap.universalTitle}</h3>
+                                <p className="text-slate-400 mb-4">{roadmap.universalDesc}</p>
+                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                    {roadmap.domains.map((d, i) => (
+                                        <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 flex-shrink-0"></span>
+                                            {d}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            
+                            {/* Advantages */}
+                            <div className="mb-6">
+                                <h3 className="text-lg font-semibold text-white mb-4">{roadmap.advantagesTitle}</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    {roadmap.advantages.map((adv, i) => (
+                                        <div key={i} className="bg-white/[.03] border border-white/5 rounded-xl p-4">
+                                            <h4 className="text-sm font-semibold text-indigo-300 mb-2">{adv.title}</h4>
+                                            <p className="text-xs text-slate-400 leading-relaxed">{adv.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            {/* Timeline */}
+                            <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                <h3 className="text-lg font-semibold text-white mb-4">{roadmap.timelineTitle}</h3>
+                                <div className="space-y-4">
+                                    {roadmap.phases.map((phase, i) => (
+                                        <div key={i} className="flex gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                                            {phase.weeks && (
+                                                <div className="flex-shrink-0 w-16 h-16 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
+                                                    <span className="text-xs font-bold text-indigo-300">{phase.weeks}</span>
+                                                </div>
+                                            )}
+                                            <div className="flex-1">
+                                                <h4 className="text-sm font-semibold text-white mb-1">{phase.name}</h4>
+                                                <p className="text-xs text-slate-400">{phase.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            {/* Milestones */}
+                            <div>
+                                <h3 className="text-lg font-semibold text-white mb-4">{roadmap.milestonesTitle}</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    {roadmap.milestones.map((m, i) => (
+                                        <div key={i} className="bg-gradient-to-br from-indigo-600/10 to-purple-600/10 border border-indigo-500/20 rounded-xl p-4">
+                                            <div className="text-xs font-bold text-indigo-400 mb-2">{m.week}</div>
+                                            <h4 className="text-sm font-semibold text-white mb-2">{m.milestone}</h4>
+                                            <p className="text-xs text-slate-400">{m.outcome}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Original Docs Content */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            {tt('docs.archCards',{returnObjects:true}).map((card,i)=>(
+                                <div key={i} className="bg-white/[.03] border border-white/5 rounded-xl p-4">
+                                    <h3 className="text-sm font-semibold text-white mb-1">{card.n}</h3>
+                                    <p className="text-xs text-slate-400 mb-2">{card.t}</p>
+                                    <span className="text-[10px] px-2 py-0.5 rounded bg-green-500/10 text-green-400">{card.m}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="bg-white/[.03] border border-white/5 rounded-xl p-4 mb-6">
+                            <h3 className="text-sm font-semibold text-white mb-3">API Endpoints</h3>
+                            <div className="space-y-2">
+                                {tt('docs.apiEndpoints',{returnObjects:true}).map((ep,i)=>(
+                                    <div key={i} className="flex items-center gap-3 text-xs font-mono">
+                                        <span className={`px-2 py-1 rounded ${ep.m==='POST'?'bg-green-500/10 text-green-400':ep.m==='PUT'?'bg-blue-500/10 text-blue-400':'bg-slate-500/10 text-slate-400'}`}>{ep.m}</span>
+                                        <span className="text-slate-300">{ep.p}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-white/[.03] border border-white/5 rounded-xl p-4 mb-6">
+                            <h3 className="text-sm font-semibold text-white mb-3">Schema SQL</h3>
+                            <pre className="text-xs text-slate-400 font-mono whitespace-pre overflow-x-auto">{tt('docs.schemaSQL')}</pre>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {tt('docs.securityCards',{returnObjects:true}).map((card,i)=>(
+                                <div key={i} className="bg-white/[.03] border border-white/5 rounded-xl p-4">
+                                    <h3 className="text-sm font-semibold text-white mb-2">{card.t}</h3>
+                                    <ul className="space-y-1">
+                                        {card.items.map((item,j)=>(
+                                            <li key={j} className="text-xs text-slate-400 flex items-center gap-1.5">
+                                                <span className="w-1 h-1 rounded-full bg-indigo-400"/>{item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
         }
 
         // ===== APP PRINCIPAL =====
