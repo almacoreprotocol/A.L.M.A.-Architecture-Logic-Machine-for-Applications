@@ -177,37 +177,69 @@
                     schemaSQL: "CREATE TABLE users (id UUID PRIMARY KEY, email TEXT UNIQUE, password_hash TEXT);\nCREATE TABLE sessions (id UUID PRIMARY KEY, mode TEXT, status TEXT DEFAULT 'active', draft_blueprint JSONB);\nCREATE TABLE blueprints (id UUID PRIMARY KEY, fingerprint TEXT UNIQUE, content JSONB, maturity_score INT);", 
                     securityCards: [{ t: 'Cifrado en Reposo', items: ['AES-256-GCM', 'bcrypt cost 12', 'AWS KMS'] }, { t: 'Cifrado en Tránsito', items: ['TLS 1.3', 'mTLS', 'cert-manager'] }, { t: 'BYOK', items: ['Solo fingerprint', 'Sin almacenamiento de claves'] }, { t: 'Backup', items: ['WAL continuo 35 días', 'Snapshots diario'] }],
                     roadmap: {
-                        title: 'ALMA - Hoja de Ruta',
+                        title: 'ALMA (Architecture & Logic Machine for Applications)— Compilador universal de intenciones',
                         subtitle: 'De cualquier problema descrito en lenguaje natural al plano de ejecución completo',
-                        intro: 'ALMA es un sistema que recibe la descripción de un problema real —sin importar el sector o la complejidad— y genera automáticamente una especificación arquitectónica completa, lista para ser materializada en la plataforma de construcción que el usuario prefiera.',
-                        vision: 'No es una herramienta de nicho. Es un compilador de propósito general: procesa la intención humana y devuelve un plano ejecutable.',
-                        layersTitle: 'La pieza que falta en el ecosistema de desarrollo',
-                        layersDesc: 'El mercado dispone de plataformas de construcción muy capaces (low‑code, no‑code, automatización), pero todas parten de la misma premisa: alguien tiene que haber traducido previamente la necesidad real en una arquitectura de software. ALMA ocupa exactamente ese espacio vacío. Es la capa 0 del desarrollo de software.',
+                        intro: 'ALMA es un sistema que recibe la descripción de un problema real —sin importar el sector o la complejidad— y genera automáticamente una especificación arquitectónica completa, lista para ser materializada en la plataforma de construcción que el usuario prefiera. No es una herramienta de nicho. Es un compilador de propósito general: procesa la intención humana y devuelve un plano ejecutable.',
+                        layersTitle: '1. La pieza que falta en el ecosistema de desarrollo',
+                        layersDesc: 'El mercado dispone de plataformas de construcción muy capaces (low‑code, no‑code, automatización), pero todas parten de la misma premisa: alguien tiene que haber traducido previamente la necesidad real en una arquitectura de software. Esa traducción la hacen analistas funcionales, arquitectos o el propio usuario si tiene los conocimientos técnicos. Cuando esos conocimientos no existen, el proceso se rompe: el proyecto no arranca, se abandona a medio camino o se construye con una arquitectura débil que genera deuda técnica desde el primer día. ALMA ocupa exactamente ese espacio vacío. Es la capa 0 del desarrollo de software.',
                         layersTable: { headers: ['Capa', 'Función', 'Ejemplos'], rows: [['Capa 0 – Intención', 'Comprende el problema y genera la especificación ejecutable.', 'ALMA'], ['Capa 1 – Construcción', 'Materializa la especificación en un sistema funcional.', 'Make, n8n, Bubble, Bolt, Lovable, FlutterFlow, Webflow, Replit, Vercel v0'], ['Capa 2 – Infraestructura', 'Despliega, escala y mantiene el sistema.', 'AWS, Vercel, Supabase']] },
-                        universalTitle: 'Universal desde el diseño',
-                        universalDesc: 'El prototipo actual utiliza un conjunto reducido de patrones únicamente para validar la metodología. Una vez integrado el motor de IA generativa, ALMA podrá procesar cualquier narrativa, sin importar la industria.',
-                        domains: ['Salud, bienestar y cuidado de personas dependientes', 'Finanzas personales, inversión, crédito y seguros', 'Logística, transporte y cadena de suministro', 'Legal, cumplimiento normativo y administración pública', 'Educación, formación y gestión del talento', 'Comercio electrónico, SaaS y modelos de suscripción', 'Agricultura, energía, agua y sostenibilidad', 'Seguridad, prevención de violencia y respuesta a crisis', 'Cualquier otra necesidad humana o empresarial que pueda describirse en lenguaje natural'],
-                        advantagesTitle: 'Ventajas estructurales del modelo',
+                        layersConsequence: 'La consecuencia práctica es inmediata: las herramientas de la capa 1 dejan de recibir ideas vagas y pasan a recibir un plano detallado que pueden ejecutar sin ambigüedad. ALMA no compite con ellas; las alimenta y amplía su mercado.',
+                        universalTitle: '2. Universal desde el diseño',
+                        universalDesc: 'El prototipo actual utiliza un conjunto reducido de patrones (adicciones, ansiedad, coordinación de cuidados) únicamente para validar la metodología de extracción y la experiencia de usuario. Esos patrones fijos desaparecen en la primera fase del desarrollo. Una vez integrado el motor de IA generativa, ALMA podrá procesar cualquier narrativa, sin importar la industria. La única condición para que ALMA funcione es que el problema pueda ser contado. No hay catálogos predefinidos que limiten hacia dónde puede mirar.',
+                        domains: ['Salud, bienestar y cuidado de personas dependientes.', 'Finanzas personales, inversión, crédito y seguros.', 'Logística, transporte y cadena de suministro.', 'Legal, cumplimiento normativo y administración pública.', 'Educación, formación y gestión del talento.', 'Comercio electrónico, SaaS y modelos de suscripción.', 'Agricultura, energía, agua y sostenibilidad.', 'Seguridad, prevención de violencia y respuesta a crisis.', 'Cualquier otra necesidad humana o empresarial que pueda describirse en lenguaje natural.'],
+                        advantagesTitle: '3. Ventajas estructurales del modelo',
+                        advantagesIntro: 'Más allá de la capacidad generativa, ALMA introduce tres propiedades que lo diferencian de otras aproximaciones basadas en IA.',
                         advantages: [
-                            { title: 'Costo de mantenimiento cercano a cero', desc: 'Un plano generado por ALMA es una especificación que ha pasado por una capa de validación automática. Incluye reglas de integridad, entidades modeladas, flujos de estado contrastados y un sandbox de pruebas. La deuda técnica derivada de malas decisiones iniciales prácticamente desaparece.' },
-                            { title: 'Aprendizaje continuo y biblioteca de soluciones', desc: 'Cada interacción con ALMA deja un rastro útil. El sistema aprende de las correcciones que aplican los usuarios y esa información se incorpora para mejorar las siguientes compilaciones. Con el tiempo, se construye una biblioteca de planos validados que acelera las nuevas traducciones.' },
-                            { title: 'Los datos de intención como activo estratégico', desc: 'Las narrativas que los usuarios introducen en ALMA son datos de mercado de primera mano. Cada intención contiene información estructurada sobre necesidades no resueltas, procesos ineficientes y oportunidades de innovación. Esto permite anticipar necesidades emergentes antes de que se conviertan en demanda explícita.' }
+                            { title: '3.1 Costo de mantenimiento cercano a cero', desc: 'Un plano generado por ALMA no es un borrador tentativo: es una especificación que ha pasado por una capa de validación automática. Incluye reglas de integridad, entidades modeladas, flujos de estado contrastados y un sandbox de pruebas que verifica la coherencia antes de la entrega. El resultado es un sistema que nace con una arquitectura sólida. La deuda técnica derivada de malas decisiones iniciales prácticamente desaparece, y con ella el mantenimiento reactivo que consume la mayor parte del presupuesto en los proyectos tradicionales. Además, el propio ALMA apenas requiere mantenimiento. El pipeline de IA se refina con el uso, sin necesidad de un equipo numeroso de ingenieros. Tras la fase de construcción inicial, la operación tiene un costo marginal muy bajo.' },
+                            { title: '3.2 Aprendizaje continuo y biblioteca de soluciones', desc: 'Cada interacción con ALMA deja un rastro útil. El sistema aprende de las correcciones que aplican los usuarios —una entidad renombrada, un flujo modificado, una restricción añadida— y esa información se incorpora para mejorar las siguientes compilaciones. Con el tiempo, se construye una biblioteca de planos validados. No se trata solo de un repositorio de ejemplos: es una memoria colectiva que permite acelerar las nuevas traducciones, reducir el número de iteraciones necesarias y aumentar la precisión global del sistema. Esta biblioteca se convierte en un activo acumulativo. Cuanto más se usa ALMA, más barato y rápido resulta resolver problemas nuevos, incluso en dominios que el sistema nunca ha visto.' },
+                            { title: '3.3 Los datos de intención como activo estratégico', desc: 'Las narrativas que los usuarios introducen en ALMA no son solo entradas para compilar: son datos de mercado de primera mano. Cada intención contiene información estructurada sobre necesidades no resueltas, procesos ineficientes, puntos de fricción diarios y oportunidades de innovación que todavía no tienen una solución adecuada. Al procesarlas, ALMA construye un mapa permanentemente actualizado de: Frecuencia y distribución de problemas por sector y región. Dominios desatendidos por el software actual. Expectativas funcionales que los usuarios expresan de forma intuitiva antes de que exista un producto. A medida que la base de intenciones crece, los datos no solo muestran lo que ya se ha solicitado, sino que permiten anticipar necesidades emergentes antes de que se conviertan en demanda explícita. Esto abre la puerta a que ALMA, en fases posteriores, sugiera funciones complementarias durante la compilación —módulos que el usuario no pidió pero que los datos indican que probablemente necesitará— o incluso genere aplicaciones completas para problemas que todavía no se han descrito, pero que el sistema identifica como inminentes a partir de los patrones agregados. Este activo de datos es defendible, crece con el uso y puede informar decisiones de inversión, desarrollo de nuevos productos o políticas públicas. No es un subproducto lateral: es parte del valor central de la plataforma.' }
                         ],
-                        timelineTitle: 'Hoja de ruta — 10 semanas hasta el compilador funcional',
+                        timelineTitle: '4. Hoja de ruta — 10 semanas hasta el compilador funcional',
+                        prototypeDesc: 'Prototipo actual: Motor de extracción basado en reglas fijas para un conjunto acotado de dominios de prueba. Generación de entidades, flujos de trabajo, invariantes de negocio y brechas de seguridad/integridad. Exportación de un JSON estructurado que cualquier plataforma de construcción puede consumir. Limitación deliberada: el catálogo es cerrado. El objetivo en esta fase es validar la experiencia de usuario y la arquitectura de la pipeline, no la cobertura universal.',
                         phases: [
-                            { name: 'Prototipo actual', desc: 'Motor de extracción basado en reglas fijas para un conjunto acotado de dominios de prueba. Generación de entidades, flujos de trabajo, invariantes de negocio y brechas de seguridad/integridad.', weeks: '' },
-                            { name: 'Semanas 1‑3 — Motor de IA generativa', desc: 'Reemplazar las reglas fijas por un modelo de lenguaje de gran escala (LLM) que opere sin catálogo previo. Integración con GPT‑4o / Claude mediante prompt engineering especializado. Capa de validación automática con umbral de confianza del 85%.', weeks: '1-3' },
-                            { name: 'Semanas 4‑6 — Compilador multiplataforma y sandbox', desc: 'Transformar el plano en un sistema ejecutable real con un solo clic. Traducción directa a código fuente (Next.js + TypeScript), workflows de automatización (Make, n8n) y aplicaciones low-code (Bubble, FlutterFlow, Webflow). Sandbox de validación con pruebas de integridad automatizadas.', weeks: '4-6' },
-                            { name: 'Semanas 7‑8 — Plataforma SaaS y colaboración', desc: 'Autenticación OAuth, historial de sesiones, versionado de blueprints, compartición de planos, sistema de créditos y integración directa con plataformas de construcción.', weeks: '7-8' },
-                            { name: 'Semanas 9‑10 — Memoria, datos y mejora autónoma', desc: 'Refuerzo por feedback humano, expansión automática de dominios, biblioteca de planos validados, panel de datos agregados de intenciones y asistente conversacional embebido.', weeks: '9-10' }
+                            { name: 'Semanas 1‑3 — Motor de IA generativa', objective: 'Objetivo: Reemplazar las reglas fijas por un modelo de lenguaje de gran escala (LLM) que opere sin catálogo previo. Integración con GPT‑4o / Claude mediante prompt engineering especializado. A partir de una narrativa libre, el modelo produce un JSON completo que incluye: Modelo de dominio (entidades, atributos, relaciones, esquema SQL/NoSQL). Máquina de estados con variantes de workflows, ventajas, desventajas y mitigaciones. Invariantes de negocio que el sistema debe cumplir en todo momento. Brechas de integridad con opciones de resolución contextualizadas. Capa de validación automática: un segundo modelo verifica coherencia, completitud y consistencia del plano. Si la puntuación de confianza queda por debajo del 85 %, el sistema se regenera o solicita una aclaración puntual al usuario.', result: 'Resultado tangible: ALMA entiende cualquier problema y produce planos de calidad profesional.', metric: 'Métrica de éxito: El 90 % de las narrativas de prueba (extraídas de foros públicos, descripciones de productos fallidos, estudios de usabilidad) deben generar un plano que supere el umbral de confianza en dos o menos iteraciones automáticas.', weeks: '1-3' },
+                            { name: 'Semanas 4‑6 — Compilador multiplataforma y sandbox de pruebas', objective: 'Objetivo: Transformar el plano en un sistema ejecutable real con un solo clic. Traducción directa del blueprint a: Código fuente completo: proyecto Next.js + TypeScript, esquema SQL de Supabase, migraciones, configuración de Tailwind, estructura de carpetas. Listo para abrir en Bolt, Lovable, Replit, Vercel v0. Workflows de automatización: JSON estructurado para Make y n8n, con nodos, conexiones y gestión de errores. Aplicaciones low-code: definición de tipos de datos, páginas y lógica de negocio lista para importar en Bubble, FlutterFlow y Webflow vía API. Sandbox de validación: al compilar, el sistema se despliega en un contenedor efímero y se somete a un conjunto de pruebas de integridad automatizadas (por ejemplo, creación de registros, invocación de endpoints, verificación de invariantes).', result: 'Resultado tangible: un clic devuelve un sistema funcional y verificado. El usuario no ha escrito una línea de código ni ha tomado ninguna decisión arquitectónica.', metric: 'Métrica de éxito: Al menos 7 plataformas de destino reciben una exportación que despliega correctamente en el sandbox sin intervención manual, pasando el 100 % de las pruebas de integridad predefinidas.', weeks: '4-6' },
+                            { name: 'Semanas 7‑8 — Plataforma SaaS y colaboración inicial', objective: 'Objetivo: Pasar de herramienta local a servicio multiusuario con modelo de negocio. Autenticación mediante OAuth (Google) y correo electrónico. Historial de sesiones, versionado de blueprints y restauración de versiones anteriores. Compartición de planos mediante enlace de solo lectura para recoger feedback de terceros. Sistema de créditos por compilación (planes Free, Pro y Enterprise). Integración directa: el usuario conecta su cuenta de Make, Bolt o Bubble y el blueprint se inyecta automáticamente en el entorno de trabajo correspondiente.', result: 'Resultado tangible: plataforma SaaS lista para aceptar clientes de pago.', metric: 'Métrica de éxito: Primeros 50 usuarios activos (registrados, con al menos una compilación) al final de la semana 8, captados exclusivamente mediante canales orgánicos y comunidades técnicas.', weeks: '7-8' },
+                            { name: 'Semanas 9‑10 — Memoria, datos y mejora autónoma', objective: 'Objetivo: ALMA se vuelve más precisa sin intervención del equipo de desarrollo. Refuerzo por feedback humano: cada corrección manual afina los prompts del LLM para compilaciones futuras. Expansión automática de dominios: cuando aparece un contexto nunca visto, ALMA propone una arquitectura candidata, la valida y la incorpora a la biblioteca. Construcción y explotación de la biblioteca de planos validados: patrones reutilizables que aceleran nuevas compilaciones. Panel de datos agregados de intenciones: visualización anonimizada de tendencias, frecuencia de problemas por sector y región, y detección de oportunidades de innovación no cubiertas. Asistente conversacional embebido para que el usuario pueda refinar cualquier parte del plano usando lenguaje natural, sin perder coherencia global.', result: 'Resultado tangible: un sistema que se auto‑mejora, que acumula un repositorio de soluciones y que convierte las intenciones en un activo de información estratégica.', metric: 'Métrica de éxito: Sin intervención manual, el sistema incorpora al menos 3 dominios nuevos y la puntuación de confianza media sube ≥5 puntos porcentuales con respecto a la fase anterior.', weeks: '9-10' }
                         ],
-                        milestonesTitle: 'Hitos principales',
+                        milestonesTitle: 'Resumen de hitos',
                         milestones: [
                             { week: 'Semana 3', milestone: 'IA generativa + validación automática', outcome: 'Planos de calidad para cualquier problema' },
                             { week: 'Semana 6', milestone: 'Compilador nativo + sandbox de pruebas', outcome: 'Un clic produce un sistema ejecutable verificado' },
-                            { week: 'Semana 8', milestone: 'SaaS, facturación e integraciones', outcome: 'Producto monetizable y abierto' },
-                            { week: 'Semana 10', milestone: 'Aprendizaje continuo y biblioteca de planos', outcome: 'Mejora autónoma y acumulación de activo de datos defendible' }
-                        ]
+                            { week: 'Semana 8', milestone: 'SaaS, facturación e integración con plataformas', outcome: 'Producto monetizable y abierto' },
+                            { week: 'Semana 10', milestone: 'Aprendizaje continuo, biblioteca de planos y mapa de intenciones', outcome: 'Mejora autónoma y acumulación de activo de datos defendible' }
+                        ],
+                        qualityTitle: '5. Calidad del plano — cómo se mide',
+                        qualityDesc: 'Cada blueprint generado recibe una puntuación de confianza arquitectónica (0‑100 %). Esta puntuación no es una estimación subjetiva; se calcula automáticamente combinando: Completitud estructural: porcentaje de entidades con atributos definidos, relaciones trazadas y flujos con estados inicial y terminal. Coherencia semántica: ausencia de entidades huérfanas, reglas contradictorias o flujos que referencian estados inexistentes. Verificabilidad: capacidad del plano de ser traducido sin pérdida a al menos tres plataformas distintas y de pasar el sandbox de integridad. El umbral de aceptación es 85 %. Por debajo de esa cifra, el sistema itera automáticamente (regeneración parcial o total) o bien solicita al usuario una aclaración mínima. Esto garantiza que ningún plano abandone el sistema sin cumplir un estándar de calidad medible y repetible.',
+                        risksTitle: '6. Riesgos principales y mitigación',
+                        risks: [
+                            { title: 'Riesgo 1: Inconsistencia del LLM en dominios muy abiertos.', desc: 'Los modelos generativos pueden producir estructuras sintácticamente correctas pero lógicamente incoherentes (entidades contradictorias, flujos imposibles). Mitigación: la capa de validación actúa como guardián. Si el plano no alcanza el umbral de confianza, se regenera con un prompt ajustado automáticamente. Si tras dos intentos no se supera el 85 %, se pide al usuario que precise un único punto de la narrativa, en lugar de forzar una arquitectura incorrecta.' },
+                            { title: 'Riesgo 2: Dependencia de APIs externas (coste y disponibilidad).', desc: 'El sistema depende de proveedores de LLM. Un cambio de precios o una interrupción del servicio afectaría la operación. Mitigación: la arquitectura se diseña con un adaptador de backend que permite intercambiar el proveedor (OpenAI, Claude, modelos open‑source autoalojados). Además, la biblioteca de planos validados reduce la dependencia porque acelera las respuestas sin necesidad de llamadas repetitivas al LLM.' },
+                            { title: 'Riesgo 3: Adopción lenta por falta de casos de uso visibles.', desc: 'Sin un catálogo de ejemplos variados, los primeros usuarios pueden no entender el alcance real de la herramienta. Mitigación: el plan de adquisición (sección 8) incluye una estrategia de contenidos basada en demostraciones con problemas reales extraídos de comunidades públicas, mostrando el blueprint y el sistema generado en cada caso.' }
+                        ],
+                        monetizationTitle: '7. Monetización',
+                        monetizationTable: { headers: ['Plan', 'Precio', 'Compilaciones/mes', 'Exportación'], rows: [['Free', '$0', '3', 'Solo JSON estándar'], ['Pro', '$99/mes', '50', 'Nativa a todas las plataformas'], ['Enterprise', 'Personalizado', 'Ilimitadas + BYOK', 'On‑premise, soporte dedicado']] },
+                        monetizationDesc: 'Con una base de aproximadamente 200 clientes Pro se alcanza el punto de equilibrio operativo en el primer trimestre tras el lanzamiento. Adicionalmente, los datos agregados de intenciones abren una línea de ingresos independiente como estudios de mercado para empresas, instituciones y fondos de inversión.',
+                        acquisitionTitle: '8. Plan de adquisición de usuarios',
+                        acquisitionDesc: 'La adquisición inicial no dependerá de inversión publicitaria, sino de tracción orgánica mediante los siguientes canales:',
+                        acquisitionChannels: [
+                            { title: 'Demostraciones con problemas públicos.', desc: 'Se seleccionarán problemas reales publicados en foros como HackerNews, Reddit (r/SomebodyMakeThis, r/StartupIdeas) o ProductHunt. Para cada problema, se generará el plano completo y, cuando sea posible, el sistema ejecutable. El resultado se compartirá en el mismo hilo, mostrando el valor de ALMA de forma directa y sin autopromoción forzada.' },
+                            { title: 'Integración con comunidades de creadores no técnicos.', desc: 'Grupos de emprendedores, asociaciones de pacientes, colectivos de cuidadores o profesionales sin perfil de desarrollo serán los primeros destinatarios. Son personas que conviven con problemas complejos y no tienen acceso a un equipo técnico. Una demostración de 5 minutos (problema → sistema funcionando) es suficiente para transmitir la utilidad.' },
+                            { title: 'Lanzamiento en plataformas de producto (ProductHunt, Betalist).', desc: 'Una vez alcanzada la fase 3 (semanas 7‑8), se programará un lanzamiento coordinado con la publicación de varios casos de estudio breves (problema + blueprint + sistema generado).' },
+                            { title: 'Colaboración con las propias plataformas de construcción.', desc: 'Se propondrá a plataformas como Make, Bolt o Bubble una integración destacada. Para ellas, ALMA es un generador de demanda cualificada: usuarios que llegan con un proyecto ya diseñado y solo necesitan el entorno de ejecución. Esa simbiosis puede traducirse en difusión conjunta y acceso a sus bases de usuarios.' }
+                        ],
+                        acquisitionGoal: 'La meta de la fase inicial no es el volumen masivo, sino la densidad de feedback. 50 usuarios activos que utilicen el sistema varias veces por semana proporcionan más aprendizaje y casos de uso que 1.000 registros inactivos.',
+                        moatTitle: '9. Foso competitivo y diferenciación',
+                        moatDesc: 'ALMA no compite directamente con ninguna herramienta de construcción o automatización. Se sitúa en una capa anterior (capa 0) que hoy está ocupada exclusivamente por analistas humanos o consultoría técnica. Existen tecnologías empresariales que cubren parte de esta función —generación de código a partir de especificaciones, asistentes de arquitectura para equipos internos— pero están diseñadas para entornos técnicos y no están disponibles como producto autoservicio para el público general. ALMA toma ese mismo principio y lo empaqueta para que cualquier persona, sin conocimientos previos, pueda pasar del problema al sistema.',
+                        moatAdvantages: [
+                            { title: 'Corpus de planos validados en producción.', desc: 'Cada solución que llega a funcionar enriquece la biblioteca y acelera futuras compilaciones. Construir una biblioteca equivalente desde cero requeriría años de operación y una masa crítica de usuarios que ALMA ya estaría capitalizando.' },
+                            { title: 'Integración profunda con las plataformas de construcción.', desc: 'ALMA no genera texto genérico, sino la configuración nativa exacta que cada herramienta espera. Cuantas más plataformas se integran, mayor es la dependencia simbiótica y mayor el coste de cambio para un competidor.' },
+                            { title: 'Datos de intenciones agregados.', desc: 'El conocimiento sobre qué necesita el mercado, con granularidad sectorial y regional, constituye un activo de inteligencia que ninguna herramienta de desarrollo posee actualmente. Como se detalla en la sección 3.3, estos datos no solo informan el presente, sino que permiten anticipar y generar funciones o aplicaciones futuras antes de que exista una demanda explícita.' }
+                        ],
+                        originTitle: '10. Origen y estado actual del proyecto',
+                        originDesc: 'ALMA no surgió de un estudio de mercado ni de una oportunidad detectada externamente. Surgió de un problema personal y repetido: al intentar llevar a cabo proyectos anteriores, me encontré una y otra vez con la misma barrera. Tenía claras las necesidades que quería resolver, pero transformarlas en una especificación ejecutable sin depender de un equipo técnico era un cuello de botella constante. Esa experiencia evidenció un hueco real en el proceso de creación de software: la distancia entre saber qué hay que hacer y tener el plano para hacerlo. Existían herramientas para construir (low‑code, automatizaciones, plataformas de despliegue), pero ninguna que tradujera la intención original en la arquitectura que esas herramientas necesitan para funcionar. El prototipo actual de ALMA es la primera materialización de esa idea. Es completamente funcional en su mecánica interna: recibe una narrativa, aplica un motor de reglas (limitado a un conjunto acotado de dominios de prueba), extrae entidades, flujos, invariantes y brechas, y exporta un documento estructurado. No se ha expuesto todavía a usuarios reales ni se ha lanzado públicamente. Todo el desarrollo se ha mantenido en fase de construcción, precisamente porque el objetivo era validar primero si la lógica de compilación automática era viable antes de ponerla frente a nadie. Esa validación técnica ya está hecha. El prototipo demuestra que el ciclo completo (intención → plano exportable) puede cerrarse con reglas deterministas. El siguiente paso —recogido en la hoja de ruta— es reemplazar esas reglas por un modelo de lenguaje que opere sin catálogos previos, y llevarlo a producción para empezar a recoger feedback real.',
+                        visionTitle: '11. Visión',
+                        visionDesc: 'ALMA elimina la última barrera entre un problema real y una solución de software bien diseñada. Las plataformas de construcción —hoy reservadas a quienes saben modelar datos y procesos— se convierten en ejecutoras de intenciones. Basta con describir el problema: ALMA se encarga de producir el plano, validarlo y traducirlo al lenguaje de la plataforma elegida. Mientras resuelve, aprende. Mientras aprende, acumula una memoria colectiva de soluciones. Y mientras acumula, revela, con datos reales, qué necesita el mundo antes de que el mundo sepa pedirlo.'
                     }
                 },
                 toast: { sessionStarted: 'Sesión iniciada: modo ', entitiesDetected: ' entidades detectadas', blueprintCompiled: 'Blueprint compilado', deleted: 'Eliminado' }
@@ -297,37 +329,69 @@
                     schemaSQL: "CREATE TABLE users (id UUID PRIMARY KEY, email TEXT UNIQUE, password_hash TEXT);\nCREATE TABLE sessions (id UUID PRIMARY KEY, mode TEXT, status TEXT DEFAULT 'active', draft_blueprint JSONB);\nCREATE TABLE blueprints (id UUID PRIMARY KEY, fingerprint TEXT UNIQUE, content JSONB, maturity_score INT);", 
                     securityCards: [{ t: 'Encryption at Rest', items: ['AES-256-GCM', 'bcrypt cost 12', 'AWS KMS'] }, { t: 'Encryption in Transit', items: ['TLS 1.3', 'mTLS', 'cert-manager'] }, { t: 'BYOK', items: ['Fingerprint only', 'No key storage'] }, { t: 'Backup', items: ['Continuous WAL 35 days', 'Daily snapshots'] }],
                     roadmap: {
-                        title: 'ALMA - Roadmap',
+                        title: 'ALMA (Architecture & Logic Machine for Applications)— Universal Intent Compiler',
                         subtitle: 'From any problem described in natural language to complete execution blueprint',
-                        intro: 'ALMA is a system that receives the description of a real problem—regardless of sector or complexity—and automatically generates a complete architectural specification, ready to be materialized in the construction platform of the user\'s choice.',
-                        vision: 'It is not a niche tool. It is a general-purpose compiler: it processes human intention and returns an executable blueprint.',
-                        layersTitle: 'The missing piece in the development ecosystem',
-                        layersDesc: 'The market has very capable construction platforms (low-code, no-code, automation), but they all start from the same premise: someone must have previously translated the real need into a software architecture. ALMA occupies exactly that empty space. It is layer 0 of software development.',
+                        intro: 'ALMA is a system that receives the description of a real problem—regardless of sector or complexity—and automatically generates a complete architectural specification, ready to be materialized in the construction platform of the user\'s choice. It is not a niche tool. It is a general-purpose compiler: it processes human intention and returns an executable blueprint.',
+                        layersTitle: '1. The missing piece in the development ecosystem',
+                        layersDesc: 'The market has very capable construction platforms (low-code, no-code, automation), but they all start from the same premise: someone must have previously translated the real need into a software architecture. That translation is done by functional analysts, architects, or the users themselves if they have technical knowledge. When that knowledge doesn\'t exist, the process breaks: the project doesn\'t start, gets abandoned halfway, or is built with weak architecture that generates technical debt from day one. ALMA occupies exactly that empty space. It is layer 0 of software development.',
                         layersTable: { headers: ['Layer', 'Function', 'Examples'], rows: [['Layer 0 – Intention', 'Understands the problem and generates the executable specification.', 'ALMA'], ['Layer 1 – Construction', 'Materializes the specification into a functional system.', 'Make, n8n, Bubble, Bolt, Lovable, FlutterFlow, Webflow, Replit, Vercel v0'], ['Layer 2 – Infrastructure', 'Deploys, scales and maintains the system.', 'AWS, Vercel, Supabase']] },
-                        universalTitle: 'Universal by design',
-                        universalDesc: 'The current prototype uses a reduced set of patterns only to validate the methodology. Once the generative AI engine is integrated, ALMA will be able to process any narrative, regardless of industry.',
-                        domains: ['Health, wellness and care for dependent persons', 'Personal finance, investment, credit and insurance', 'Logistics, transport and supply chain', 'Legal, regulatory compliance and public administration', 'Education, training and talent management', 'E-commerce, SaaS and subscription models', 'Agriculture, energy, water and sustainability', 'Security, violence prevention and crisis response', 'Any other human or business need that can be described in natural language'],
-                        advantagesTitle: 'Structural advantages of the model',
+                        layersConsequence: 'The practical consequence is immediate: layer 1 tools stop receiving vague ideas and start receiving detailed blueprints they can execute without ambiguity. ALMA doesn\'t compete with them; it feeds and expands their market.',
+                        universalTitle: '2. Universal by design',
+                        universalDesc: 'The current prototype uses a reduced set of patterns (addictions, anxiety, care coordination) only to validate the extraction methodology and user experience. Those fixed patterns disappear in the first development phase. Once the generative AI engine is integrated, ALMA will be able to process any narrative, regardless of industry. The only condition for ALMA to work is that the problem can be told. There are no predefined catalogs limiting where it can look.',
+                        domains: ['Health, wellness and care for dependent persons.', 'Personal finance, investment, credit and insurance.', 'Logistics, transport and supply chain.', 'Legal, regulatory compliance and public administration.', 'Education, training and talent management.', 'E-commerce, SaaS and subscription models.', 'Agriculture, energy, water and sustainability.', 'Security, violence prevention and crisis response.', 'Any other human or business need that can be described in natural language.'],
+                        advantagesTitle: '3. Structural advantages of the model',
+                        advantagesIntro: 'Beyond generative capacity, ALMA introduces three properties that differentiate it from other AI-based approaches.',
                         advantages: [
-                            { title: 'Near-zero maintenance cost', desc: 'A blueprint generated by ALMA is a specification that has passed through an automatic validation layer. It includes integrity rules, modeled entities, contrasted state flows and a test sandbox. Technical debt derived from poor initial decisions practically disappears.' },
-                            { title: 'Continuous learning and solution library', desc: 'Every interaction with ALMA leaves a useful trail. The system learns from corrections applied by users and that information is incorporated to improve subsequent compilations. Over time, a library of validated blueprints is built that accelerates new translations.' },
-                            { title: 'Intention data as a strategic asset', desc: 'The narratives that users enter into ALMA are first-hand market data. Each intention contains structured information about unresolved needs, inefficient processes and innovation opportunities. This makes it possible to anticipate emerging needs before they become explicit demand.' }
+                            { title: '3.1 Near-zero maintenance cost', desc: 'A blueprint generated by ALMA is not a tentative draft: it\'s a specification that has passed through an automatic validation layer. It includes integrity rules, modeled entities, contrasted state flows and a test sandbox that verifies coherence before delivery. The result is a system born with solid architecture. Technical debt derived from poor initial decisions practically disappears, along with the reactive maintenance that consumes most of the budget in traditional projects. Additionally, ALMA itself barely requires maintenance. The AI pipeline refines itself with use, without needing a large team of engineers. After the initial construction phase, operation has a very low marginal cost.' },
+                            { title: '3.2 Continuous learning and solution library', desc: 'Every interaction with ALMA leaves a useful trail. The system learns from corrections applied by users—a renamed entity, a modified flow, an added constraint—and that information is incorporated to improve subsequent compilations. Over time, a library of validated blueprints is built. It\'s not just a repository of examples: it\'s a collective memory that accelerates new translations, reduces the number of necessary iterations and increases overall system precision. This library becomes an accumulative asset. The more ALMA is used, the cheaper and faster it becomes to solve new problems, even in domains the system has never seen.' },
+                            { title: '3.3 Intention data as a strategic asset', desc: 'The narratives users enter into ALMA are not just inputs for compilation: they\'re first-hand market data. Each intention contains structured information about unresolved needs, inefficient processes, daily friction points and innovation opportunities that still don\'t have an adequate solution. By processing them, ALMA builds a permanently updated map of: Frequency and distribution of problems by sector and region. Domains underserved by current software. Functional expectations that users express intuitively before a product exists. As the intention base grows, the data not only shows what has already been requested, but allows anticipating emerging needs before they become explicit demand. This opens the door for ALMA, in later phases, to suggest complementary functions during compilation—modules the user didn\'t ask for but that data indicates they\'ll probably need—or even generate complete applications for problems that haven\'t yet been described, but that the system identifies as imminent from aggregated patterns. This data asset is defensible, grows with use and can inform investment decisions, new product development or public policies. It\'s not a lateral byproduct: it\'s part of the platform\'s core value.' }
                         ],
-                        timelineTitle: 'Roadmap — 10 weeks to functional compiler',
+                        timelineTitle: '4. Roadmap — 10 weeks to functional compiler',
+                        prototypeDesc: 'Current prototype: Extraction engine based on fixed rules for a limited set of test domains. Generation of entities, workflows, business invariants and security/integrity gaps. Export of structured JSON that any construction platform can consume. Deliberate limitation: the catalog is closed. The objective in this phase is to validate user experience and pipeline architecture, not universal coverage.',
                         phases: [
-                            { name: 'Current Prototype', desc: 'Extraction engine based on fixed rules for a limited set of test domains. Generation of entities, workflows, business invariants and security/integrity gaps.', weeks: '' },
-                            { name: 'Weeks 1‑3 — Generative AI Engine', desc: 'Replace fixed rules with a large language model (LLM) that operates without a prior catalog. Integration with GPT‑4o / Claude via specialized prompt engineering. Automatic validation layer with 85% confidence threshold.', weeks: '1-3' },
-                            { name: 'Weeks 4‑6 — Multi-platform Compiler and Sandbox', desc: 'Transform the blueprint into a real executable system with a single click. Direct translation to source code (Next.js + TypeScript), automation workflows (Make, n8n) and low-code applications (Bubble, FlutterFlow, Webflow). Validation sandbox with automated integrity tests.', weeks: '4-6' },
-                            { name: 'Weeks 7‑8 — SaaS Platform and Collaboration', desc: 'OAuth authentication, session history, blueprint versioning, blueprint sharing, credit system and direct integration with construction platforms.', weeks: '7-8' },
-                            { name: 'Weeks 9‑10 — Memory, Data and Autonomous Improvement', desc: 'Human feedback reinforcement, automatic domain expansion, library of validated blueprints, aggregated intention data dashboard and embedded conversational assistant.', weeks: '9-10' }
+                            { name: 'Weeks 1‑3 — Generative AI Engine', objective: 'Objective: Replace fixed rules with a large language model (LLM) that operates without a prior catalog. Integration with GPT‑4o / Claude via specialized prompt engineering. From a free narrative, the model produces a complete JSON including: Domain model (entities, attributes, relationships, SQL/NoSQL schema). State machine with workflow variants, advantages, disadvantages and mitigations. Business invariants that the system must comply with at all times. Integrity gaps with contextualized resolution options. Automatic validation layer: a second model verifies coherence, completeness and consistency of the blueprint. If confidence score falls below 85%, the system regenerates or requests a specific clarification from the user.', result: 'Tangible result: ALMA understands any problem and produces professional-quality blueprints.', metric: 'Success metric: 90% of test narratives (extracted from public forums, failed product descriptions, usability studies) must generate a blueprint exceeding the confidence threshold in two or fewer automatic iterations.', weeks: '1-3' },
+                            { name: 'Weeks 4‑6 — Multi-platform Compiler and Test Sandbox', objective: 'Objective: Transform the blueprint into a real executable system with a single click. Direct translation of the blueprint to: Complete source code: Next.js + TypeScript project, Supabase SQL schema, migrations, Tailwind configuration, folder structure. Ready to open in Bolt, Lovable, Replit, Vercel v0. Automation workflows: Structured JSON for Make and n8n, with nodes, connections and error handling. Low-code applications: Data type definitions, pages and business logic ready to import into Bubble, FlutterFlow and Webflow via API. Validation sandbox: upon compilation, the system deploys in an ephemeral container and undergoes a set of automated integrity tests (e.g., record creation, endpoint invocation, invariant verification).', result: 'Tangible result: one click returns a functional and verified system. The user hasn\'t written a line of code or made any architectural decision.', metric: 'Success metric: At least 7 destination platforms receive an export that deploys correctly in the sandbox without manual intervention, passing 100% of predefined integrity tests.', weeks: '4-6' },
+                            { name: 'Weeks 7‑8 — SaaS Platform and Initial Collaboration', objective: 'Objective: Move from local tool to multiuser service with business model. Authentication via OAuth (Google) and email. Session history, blueprint versioning and restoration of previous versions. Blueprint sharing via read-only link to gather third-party feedback. Credits system per compilation (Free, Pro and Enterprise plans). Direct integration: user connects their Make, Bolt or Bubble account and the blueprint is automatically injected into the corresponding work environment.', result: 'Tangible result: SaaS platform ready to accept paying customers.', metric: 'Success metric: First 50 active users (registered, with at least one compilation) by end of week 8, acquired exclusively through organic channels and technical communities.', weeks: '7-8' },
+                            { name: 'Weeks 9‑10 — Memory, Data and Autonomous Improvement', objective: 'Objective: ALMA becomes more accurate without development team intervention. Human feedback reinforcement: each manual correction fine-tunes LLM prompts for future compilations. Automatic domain expansion: when a never-before-seen context appears, ALMA proposes a candidate architecture, validates it and incorporates it into the library. Construction and exploitation of validated blueprints library: reusable patterns that accelerate new compilations. Aggregated intention data dashboard: anonymized visualization of trends, frequency of problems by sector and region, and detection of uncovered innovation opportunities. Embedded conversational assistant so user can refine any part of the blueprint using natural language, without losing global coherence.', result: 'Tangible result: a system that self-improves, accumulates a solutions repository and turns intentions into a strategic information asset.', metric: 'Success metric: Without manual intervention, the system incorporates at least 3 new domains and average confidence score rises ≥5 percentage points compared to previous phase.', weeks: '9-10' }
                         ],
-                        milestonesTitle: 'Key Milestones',
+                        milestonesTitle: 'Milestones summary',
                         milestones: [
                             { week: 'Week 3', milestone: 'Generative AI + automatic validation', outcome: 'Quality blueprints for any problem' },
                             { week: 'Week 6', milestone: 'Native compiler + test sandbox', outcome: 'One click produces a verified executable system' },
-                            { week: 'Week 8', milestone: 'SaaS, billing and integrations', outcome: 'Monetizable and open product' },
-                            { week: 'Week 10', milestone: 'Continuous learning and blueprint library', outcome: 'Autonomous improvement and accumulation of defensible data asset' }
-                        ]
+                            { week: 'Week 8', milestone: 'SaaS, billing and platform integrations', outcome: 'Monetizable and open product' },
+                            { week: 'Week 10', milestone: 'Continuous learning, blueprint library and intention map', outcome: 'Autonomous improvement and accumulation of defensible data asset' }
+                        ],
+                        qualityTitle: '5. Blueprint quality — how it\'s measured',
+                        qualityDesc: 'Each generated blueprint receives an architectural confidence score (0‑100%). This score is not a subjective estimate; it\'s calculated automatically by combining: Structural completeness: percentage of entities with defined attributes, traced relationships and flows with initial and terminal states. Semantic coherence: absence of orphan entities, contradictory rules or flows referencing non-existent states. Verifiability: blueprint\'s capacity to be translated without loss to at least three different platforms and pass the integrity sandbox. Acceptance threshold is 85%. Below that figure, the system iterates automatically (partial or total regeneration) or requests minimal clarification from the user. This guarantees no blueprint leaves the system without meeting a measurable and repeatable quality standard.',
+                        risksTitle: '6. Main risks and mitigation',
+                        risks: [
+                            { title: 'Risk 1: LLM inconsistency in very open domains.', desc: 'Generative models can produce syntactically correct but logically incoherent structures (contradictory entities, impossible flows). Mitigation: the validation layer acts as guardian. If the blueprint doesn\'t reach the confidence threshold, it\'s regenerated with an automatically adjusted prompt. If after two attempts 85% isn\'t exceeded, the user is asked to clarify a single point of the narrative, instead of forcing an incorrect architecture.' },
+                            { title: 'Risk 2: Dependence on external APIs (cost and availability).', desc: 'The system depends on LLM providers. A price change or service interruption would affect operation. Mitigation: the architecture is designed with a backend adapter that allows swapping providers (OpenAI, Claude, open-source self-hosted models). Additionally, the validated blueprints library reduces dependence because it accelerates responses without need for repetitive LLM calls.' },
+                            { title: 'Risk 3: Slow adoption due to lack of visible use cases.', desc: 'Without a varied catalog of examples, early users may not understand the tool\'s real scope. Mitigation: the acquisition plan (section 8) includes a content strategy based on demonstrations with real problems extracted from public communities, showing the blueprint and generated system in each case.' }
+                        ],
+                        monetizationTitle: '7. Monetization',
+                        monetizationTable: { headers: ['Plan', 'Price', 'Compilations/month', 'Export'], rows: [['Free', '$0', '3', 'Standard JSON only'], ['Pro', '$99/month', '50', 'Native to all platforms'], ['Enterprise', 'Custom', 'Unlimited + BYOK', 'On-premise, dedicated support']] },
+                        monetizationDesc: 'With a base of approximately 200 Pro customers, operational break-even is reached in the first quarter after launch. Additionally, aggregated intention data opens an independent revenue line as market research for companies, institutions and investment funds.',
+                        acquisitionTitle: '8. User acquisition plan',
+                        acquisitionDesc: 'Initial acquisition won\'t depend on advertising investment, but on organic traction through the following channels:',
+                        acquisitionChannels: [
+                            { title: 'Demonstrations with public problems.', desc: 'Real problems published in forums like HackerNews, Reddit (r/SomebodyMakeThis, r/StartupIdeas) or ProductHunt will be selected. For each problem, the complete blueprint will be generated and, when possible, the executable system. The result will be shared in the same thread, showing ALMA\'s value directly and without forced self-promotion.' },
+                            { title: 'Integration with non-technical creator communities.', desc: 'Entrepreneur groups, patient associations, caregiver collectives or professionals without development profiles will be the first recipients. These are people living with complex problems and without access to a technical team. A 5-minute demonstration (problem → functioning system) is enough to convey utility.' },
+                            { title: 'Launch on product platforms (ProductHunt, Betalist).', desc: 'Once phase 3 is reached (weeks 7‑8), a coordinated launch will be scheduled with publication of several brief case studies (problem + blueprint + generated system).' },
+                            { title: 'Collaboration with construction platforms themselves.', desc: 'Platforms like Make, Bolt or Bubble will be offered a featured integration. For them, ALMA is a qualified demand generator: users arriving with a project already designed and only needing the execution environment. That symbiosis can translate into joint promotion and access to their user bases.' }
+                        ],
+                        acquisitionGoal: 'The goal of the initial phase is not massive volume, but feedback density. 50 active users using the system several times a week provide more learning and use cases than 1,000 inactive registrations.',
+                        moatTitle: '9. Competitive moat and differentiation',
+                        moatDesc: 'ALMA doesn\'t compete directly with any construction or automation tool. It sits in an earlier layer (layer 0) that today is occupied exclusively by human analysts or technical consulting. There are enterprise technologies covering part of this function—code generation from specifications, architecture assistants for internal teams—but they\'re designed for technical environments and aren\'t available as self-service products for the general public. ALMA takes that same principle and packages it so any person, without prior knowledge, can go from problem to system.',
+                        moatAdvantages: [
+                            { title: 'Corpus of production-validated blueprints.', desc: 'Every solution that reaches production enriches the library and accelerates future compilations. Building an equivalent library from scratch would require years of operation and a critical mass of users that ALMA would already be capitalizing on.' },
+                            { title: 'Deep integration with construction platforms.', desc: 'ALMA doesn\'t generate generic text, but the exact native configuration each tool expects. The more platforms integrated, the greater the symbiotic dependence and the higher the switching cost for a competitor.' },
+                            { title: 'Aggregated intention data.', desc: 'Knowledge about what the market needs, with sectorial and regional granularity, constitutes an intelligence asset that no development tool currently possesses. As detailed in section 3.3, this data not only informs the present, but allows anticipating and generating future functions or applications before explicit demand exists.' }
+                        ],
+                        originTitle: '10. Origin and current project status',
+                        originDesc: 'ALMA didn\'t emerge from a market study or externally detected opportunity. It emerged from a personal and repeated problem: when trying to carry out previous projects, I encountered the same barrier again and again. I had clear needs I wanted to solve, but transforming them into an executable specification without depending on a technical team was a constant bottleneck. That experience revealed a real gap in the software creation process: the distance between knowing what needs to be done and having the blueprint to do it. Tools existed for building (low-code, automations, deployment platforms), but none that translated original intention into the architecture those tools need to function. The current ALMA prototype is the first materialization of that idea. It\'s completely functional in its internal mechanics: it receives a narrative, applies a rules engine (limited to a bounded set of test domains), extracts entities, flows, invariants and gaps, and exports a structured document. It hasn\'t yet been exposed to real users or publicly launched. All development has remained in construction phase, precisely because the objective was to first validate whether automatic compilation logic was viable before putting it in front of anyone. That technical validation is now done. The prototype demonstrates the complete cycle (intention → exportable blueprint) can be closed with deterministic rules. The next step—captured in the roadmap—is to replace those rules with a language model operating without prior catalogs, and take it to production to start gathering real feedback.',
+                        visionTitle: '11. Vision',
+                        visionDesc: 'ALMA eliminates the last barrier between a real problem and a well-designed software solution. Construction platforms—today reserved for those who know how to model data and processes—become intention executors. It\'s enough to describe the problem: ALMA takes care of producing the blueprint, validating it and translating it to the chosen platform\'s language. While solving, it learns. While learning, it accumulates a collective memory of solutions. And while accumulating, it reveals, with real data, what the world needs before the world knows to ask for it.'
                     }
                 },
                 toast: { sessionStarted: 'Session started: mode ', entitiesDetected: ' entities detected', blueprintCompiled: 'Blueprint compiled', deleted: 'Deleted' }
@@ -2411,17 +2475,16 @@
             const roadmap = tt('docs.roadmap', { returnObjects: true });
             return (
                 <div className="min-h-screen pt-16 pb-12 px-4 fi">
-                    <div className="max-w-5xl mx-auto">
+                    <div className="max-w-7xl mx-auto">
                         <h1 className="text-2xl font-bold text-white mb-6">{tt('docs.title')}</h1>
                         
                         {/* Roadmap Section */}
-                        <div className="mb-12">
+                        <div className="mb-12 space-y-8">
                             <h2 className="text-xl font-bold text-indigo-300 mb-2">{roadmap.title}</h2>
                             <p className="text-slate-400 mb-4">{roadmap.subtitle}</p>
                             
                             <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
                                 <p className="text-slate-300 mb-4">{roadmap.intro}</p>
-                                <p className="text-indigo-200 font-medium">{roadmap.vision}</p>
                             </div>
                             
                             {/* Layers Table */}
@@ -2448,6 +2511,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {roadmap.layersConsequence && <p className="text-slate-400 mt-4 italic">{roadmap.layersConsequence}</p>}
                             </div>
                             
                             {/* Universal Section */}
@@ -2467,6 +2531,7 @@
                             {/* Advantages */}
                             <div className="mb-6">
                                 <h3 className="text-lg font-semibold text-white mb-4">{roadmap.advantagesTitle}</h3>
+                                {roadmap.advantagesIntro && <p className="text-slate-400 mb-4">{roadmap.advantagesIntro}</p>}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     {roadmap.advantages.map((adv, i) => (
                                         <div key={i} className="bg-white/[.03] border border-white/5 rounded-xl p-4">
@@ -2480,17 +2545,22 @@
                             {/* Timeline */}
                             <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
                                 <h3 className="text-lg font-semibold text-white mb-4">{roadmap.timelineTitle}</h3>
+                                {roadmap.prototypeDesc && <p className="text-slate-400 mb-4">{roadmap.prototypeDesc}</p>}
                                 <div className="space-y-4">
                                     {roadmap.phases.map((phase, i) => (
-                                        <div key={i} className="flex gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
-                                            {phase.weeks && (
-                                                <div className="flex-shrink-0 w-16 h-16 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
-                                                    <span className="text-xs font-bold text-indigo-300">{phase.weeks}</span>
+                                        <div key={i} className="pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                                            <div className="flex gap-4 mb-2">
+                                                {phase.weeks && (
+                                                    <div className="flex-shrink-0 w-16 h-16 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
+                                                        <span className="text-xs font-bold text-indigo-300">{phase.weeks}</span>
+                                                    </div>
+                                                )}
+                                                <div className="flex-1">
+                                                    <h4 className="text-sm font-semibold text-white mb-1">{phase.name}</h4>
+                                                    {phase.objective && <p className="text-xs text-slate-400 mb-2"><span className="font-semibold text-indigo-300">Objetivo:</span> {phase.objective}</p>}
+                                                    {phase.result && <p className="text-xs text-slate-400 mb-2"><span className="font-semibold text-green-300">Resultado tangible:</span> {phase.result}</p>}
+                                                    {phase.metric && <p className="text-xs text-slate-400"><span className="font-semibold text-purple-300">Métrica de éxito:</span> {phase.metric}</p>}
                                                 </div>
-                                            )}
-                                            <div className="flex-1">
-                                                <h4 className="text-sm font-semibold text-white mb-1">{phase.name}</h4>
-                                                <p className="text-xs text-slate-400">{phase.desc}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -2498,7 +2568,7 @@
                             </div>
                             
                             {/* Milestones */}
-                            <div>
+                            <div className="mb-6">
                                 <h3 className="text-lg font-semibold text-white mb-4">{roadmap.milestonesTitle}</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                     {roadmap.milestones.map((m, i) => (
@@ -2510,6 +2580,106 @@
                                     ))}
                                 </div>
                             </div>
+                            
+                            {/* Quality Section */}
+                            {roadmap.qualityTitle && (
+                                <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                    <h3 className="text-lg font-semibold text-white mb-3">{roadmap.qualityTitle}</h3>
+                                    <p className="text-slate-400">{roadmap.qualityDesc}</p>
+                                </div>
+                            )}
+                            
+                            {/* Risks Section */}
+                            {roadmap.risksTitle && (
+                                <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                    <h3 className="text-lg font-semibold text-white mb-4">{roadmap.risksTitle}</h3>
+                                    <div className="space-y-4">
+                                        {roadmap.risks.map((risk, i) => (
+                                            <div key={i} className="bg-white/[.02] border border-white/5 rounded-lg p-4">
+                                                <h4 className="text-sm font-semibold text-red-300 mb-2">{risk.title}</h4>
+                                                <p className="text-xs text-slate-400">{risk.desc}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {/* Monetization Section */}
+                            {roadmap.monetizationTitle && (
+                                <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                    <h3 className="text-lg font-semibold text-white mb-4">{roadmap.monetizationTitle}</h3>
+                                    <div className="overflow-x-auto mb-4">
+                                        <table className="w-full text-sm">
+                                            <thead>
+                                                <tr className="border-b border-white/10">
+                                                    {roadmap.monetizationTable.headers.map((h, i) => (
+                                                        <th key={i} className="text-left py-2 px-3 text-indigo-300 font-semibold">{h}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {roadmap.monetizationTable.rows.map((row, i) => (
+                                                    <tr key={i} className="border-b border-white/5 last:border-0">
+                                                        {row.map((cell, j) => (
+                                                            <td key={j} className="py-3 px-3 text-slate-300">{cell}</td>
+                                                        ))}
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <p className="text-slate-400">{roadmap.monetizationDesc}</p>
+                                </div>
+                            )}
+                            
+                            {/* Acquisition Section */}
+                            {roadmap.acquisitionTitle && (
+                                <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                    <h3 className="text-lg font-semibold text-white mb-4">{roadmap.acquisitionTitle}</h3>
+                                    <p className="text-slate-400 mb-4">{roadmap.acquisitionDesc}</p>
+                                    <div className="space-y-4">
+                                        {roadmap.acquisitionChannels.map((channel, i) => (
+                                            <div key={i} className="bg-white/[.02] border border-white/5 rounded-lg p-4">
+                                                <h4 className="text-sm font-semibold text-indigo-300 mb-2">{channel.title}</h4>
+                                                <p className="text-xs text-slate-400">{channel.desc}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="text-slate-400 mt-4 italic">{roadmap.acquisitionGoal}</p>
+                                </div>
+                            )}
+                            
+                            {/* Moat Section */}
+                            {roadmap.moatTitle && (
+                                <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                    <h3 className="text-lg font-semibold text-white mb-4">{roadmap.moatTitle}</h3>
+                                    <p className="text-slate-400 mb-4">{roadmap.moatDesc}</p>
+                                    <div className="space-y-4">
+                                        {roadmap.moatAdvantages.map((adv, i) => (
+                                            <div key={i} className="bg-white/[.02] border border-white/5 rounded-lg p-4">
+                                                <h4 className="text-sm font-semibold text-green-300 mb-2">{adv.title}</h4>
+                                                <p className="text-xs text-slate-400">{adv.desc}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            
+                            {/* Origin Section */}
+                            {roadmap.originTitle && (
+                                <div className="bg-white/[.03] border border-white/5 rounded-xl p-6 mb-6">
+                                    <h3 className="text-lg font-semibold text-white mb-4">{roadmap.originTitle}</h3>
+                                    <p className="text-slate-400">{roadmap.originDesc}</p>
+                                </div>
+                            )}
+                            
+                            {/* Vision Section */}
+                            {roadmap.visionTitle && (
+                                <div className="bg-gradient-to-br from-indigo-600/10 to-purple-600/10 border border-indigo-500/20 rounded-xl p-6">
+                                    <h3 className="text-lg font-semibold text-white mb-4">{roadmap.visionTitle}</h3>
+                                    <p className="text-slate-300">{roadmap.visionDesc}</p>
+                                </div>
+                            )}
                         </div>
                         
                         {/* Original Docs Content */}
